@@ -1,0 +1,42 @@
+.nav{
+    background-color: #4752FF;
+    align-items: center;
+}
+
+.logo{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    margin-left: 1%;
+}
+
+.basket{
+    font-size: 20px;
+    margin-left: 40%;
+
+}
+
+.make_announcement{
+    width: 14%;
+    margin-right: 10%;
+}
+
+.go_to_personal_area{
+
+}
+
+.nav-item{
+    text-decoration: none;
+    font-family: 'Comic Sans MS';
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+
+.nav-item:hover{
+    text-decoration: none;
+}
+.content{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+

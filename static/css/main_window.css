@@ -1,0 +1,20 @@
+.category{
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-family: 'Comic Sans MS';
+    text-decoration: none;
+}
+
+.search{
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-family: 'Comic Sans MS';
+    margin-left: 0%;
+    width: 40%;
+    color: black;
+}
+
+.searching{
+    position: fixed;
+
+}
