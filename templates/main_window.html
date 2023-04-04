@@ -6,7 +6,17 @@
     <input class="search" type="text">
 </div>
 <div class="announcements">
-
+    {% for item in announcements%}
+        <div>
+            <h2>{{item.title}}</h2>
+            <div>
+                {{item.content}}
+            </div>
+            <div>
+                Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
