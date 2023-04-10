@@ -5,7 +5,6 @@ from forms import user_forms
 from data.users import User
 from flask_login import login_user, logout_user, login_required, current_user
 
-
 blueprint = flask.Blueprint(
     'register',
     __name__,
@@ -44,16 +43,11 @@ def login():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
+            login_user(user)
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
-
-@blueprint.route('/', methods=['GET', 'POST'])
-@login_required
-def logout():
-    logout_user()
-    return redirect("/login")
 

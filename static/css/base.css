@@ -1,6 +1,11 @@
 .nav{
     background-color: #4752FF;
     align-items: center;
+    height: 50px;
+}
+
+.nav-container{
+    margin-right: 40%;
 }
 
 .logo{
@@ -11,16 +16,15 @@
 
 .basket{
     font-size: 20px;
-    margin-left: 40%;
-
+    width: 14%;
 }
 
 .make_announcement{
     width: 14%;
-    margin-right: 10%;
 }
 
 .go_to_personal_area{
+    width: 14%;
 
 }
 
@@ -29,14 +33,71 @@
     font-family: 'Comic Sans MS';
     color: rgb(255, 255, 255);
     font-size: 20px;
+
 }
 
 
 .nav-item:hover{
     text-decoration: none;
 }
+
+
+
+
+
+
+
 .content{
     margin-left: 20%;
     margin-right: 20%;
 }
+
+.category{
+    background-color: #4752FF;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    width: 15%;
+    height: 5%;
+    font-family: 'Comic Sans MS';
+    text-decoration: none;
+}
+
+.search{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    font-family: 'Comic Sans MS';
+    margin-left: 0%;
+    width: 40%;
+    height: 5%;
+    color: black;
+}
+
+.searching{
+    position: relative;
+
+}
+
+.announcement{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+
+
+}
+
+.announcement:hover{
+    text-decoration: none;
+    color: red;
+
+    color: rgb(0, 0, 0);
+}
+
+.announcement-block{
+    background-color: rgb(255, 255, 255);
+}
+
+.announcement-block:hover{
+    background-color: #7F8284;
+}
+
 
