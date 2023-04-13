@@ -14,7 +14,6 @@
     <nav class="nav">
         <a class ="logo nav-item" href="/"><img src="" alt="????"></a>
         {% if current_user.is_authenticated %}
-
             <a class="go_to_personal_area nav-item" href="/personal_area">{{ current_user.name }}</a>
             <a class="make_announcement nav-item" href="make_announcement ">Разместить</a>
             <a class ="basket nav-item" href="/basket">Корзина</a>

@@ -17,5 +17,7 @@ class Announcement(SqlAlchemyBase):
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
+    picture = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     address = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    state = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     # categories = sqlalchemy.Column(sqlalchemy.String, nullable=True)
