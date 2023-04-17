@@ -4,6 +4,7 @@ from data import db_session, users
 from forms import user_forms
 from data.users import User
 from flask_login import login_user, logout_user, login_required, current_user
+from data.announcements import Announcement
 
 blueprint = flask.Blueprint(
     'register',
@@ -25,9 +26,14 @@ def register():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
+        if db_sess.query(User).filter(User.number == form.number.data).first():
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Такой пользователь уже есть")
         user = users.User(
             name=form.name.data,
-            email=form.email.data
+            email=form.email.data,
+            number=form.number.data
         )
         user.set_password(form.password.data)
         db_sess.add(user)
@@ -51,3 +57,15 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
+@blueprint.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+@blueprint.route('/personal_area', methods=['GET'])
+def personal_area():
+    db_sess = db_session.create_session()
+    personal_announcements = db_sess.query(Announcement).filter(current_user.id == Announcement.user_id).all()
+    return render_template('personal_area.html', personal_announcements=personal_announcements)

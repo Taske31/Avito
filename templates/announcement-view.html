@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="announcement-view-actions">
+    <a class="btn btn-warning" href="/announcement-edit/{{announcement.id}}">Редактировать</a>
+    <a class="btn btn-danger" href="/announcement-delete/{{announcement.id}}">Удалить</a>
+    <a class="btn btn-primary" href="/following/{{announcement.id}}">Добавить</a>
+    <a class="btn btn-primary" href="/basket_add/{{announcement.id}}">В корзину</a>
+</div>
 <div class="announcement-view-block">
     <div class="announcement-view-user">
         {{announcement.user.name}}

@@ -12,11 +12,12 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     email = sqlalchemy.Column(sqlalchemy.String,
-                              index=True, unique=True, nullable=True)
+                              index=True, unique=True, nullable=False)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     announcements = orm.relationship("Announcement", back_populates='user')
+    number = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

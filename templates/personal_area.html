@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="personal-info">
+    <h1>{{current_user.name}}</h1>
+    <p>Телефон - {{current_user.number}}</p>
+    <p>Почта - {{current_user.email}}</p>
+    <a href="/logout" class="btn btn-danger">Выйти</a>
+</div>
+    {% for announcement in personal_announcements %}
+    <div class="announcement-block">
+            <a class="announcement" href="/{{announcement.id}}">
+                <h2>{{announcement.title}}</h2>
+                <div>
+                    {{announcement.content}}
+                </div>
+                <div>
+                    Дата написания - {{announcement.created_date}}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

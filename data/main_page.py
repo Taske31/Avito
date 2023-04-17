@@ -11,11 +11,11 @@ blueprint = flask.Blueprint(
 
 
 @blueprint.route('/')
-def main_window():
+def main_page():
+    print(1)
     db_sess = db_session.create_session()
-    announcements = db_sess.query(Announcement).all()
-    #if current_user.is_authenticated:
-    #    print(current_user.name)
-    #else:
-    #    print('Anonymous')
-    return render_template('main_window.html', current_user=current_user, announcements=announcements)
+    if current_user.is_authenticated:
+        announcements = db_sess.query(Announcement).filter(current_user.id != Announcement.user_id).all()
+    else:
+        announcements = db_sess.query(Announcement).all()
+    return render_template('main_page.html', current_user=current_user, announcements=announcements)
