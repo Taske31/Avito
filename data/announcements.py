@@ -16,8 +16,18 @@ class Announcement(SqlAlchemyBase):
                                      default=datetime.datetime.now)
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
-    user = orm.relationship('User')
+    user = orm.relationship('User', lazy='subquery')
     picture = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     address = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     state = sqlalchemy.Column(sqlalchemy.String, nullable=False)
-    # categories = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    category = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+
+
+following_table = sqlalchemy.Table(
+    'following',
+    SqlAlchemyBase.metadata,
+    sqlalchemy.Column('user', sqlalchemy.Integer,
+                      sqlalchemy.ForeignKey('users.id')),
+    sqlalchemy.Column('announcement', sqlalchemy.Integer,
+                      sqlalchemy.ForeignKey('announcement.id'))
+)

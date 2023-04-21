@@ -64,8 +64,16 @@ def logout():
     return redirect("/")
 
 
-@blueprint.route('/personal_area', methods=['GET'])
+@blueprint.route('/personal-area-main', methods=['GET'])
 def personal_area():
     db_sess = db_session.create_session()
     personal_announcements = db_sess.query(Announcement).filter(current_user.id == Announcement.user_id).all()
-    return render_template('personal_area.html', personal_announcements=personal_announcements)
+    return render_template('personal-area-main.html', personal_announcements=personal_announcements)
+
+
+@blueprint.route('/personal-area-following', methods=['GET'])
+def personal_area_following():
+    db_sess = db_session.create_session()
+    following_list = [i.id for i in current_user.following]
+    following_announcements = db_sess.query(Announcement).filter(Announcement.id.in_(following_list)).all()
+    return render_template('personal-area-following.html', following_announcements=following_announcements)

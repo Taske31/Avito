@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="personal-info">
+    <h1>{{current_user.name}}</h1>
+    <p>Телефон - {{current_user.number}}</p>
+    <p>Почта - {{current_user.email}}</p>
+    <a href="/logout" class="btn btn-danger">Выйти</a>
+</div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="/personal-area-main">Архив</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/personal-area-following">Избранное</a>
+  </li>
+</ul>
+    {% for announcement in following_announcements %}
+    <div class="announcement-block">
+            <a class="announcement" href="/{{announcement.id}}">
+                <h2>{{announcement.title}}</h2>
+                <div>
+                    {{announcement.content}}
+                </div>
+                <div>
+                    Дата написания - {{announcement.created_date}}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

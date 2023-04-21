@@ -1,1 +1,1 @@
-from . import users, announcements
+from . import users, announcements, category

@@ -6,6 +6,7 @@ from forms import announcement_forms
 from werkzeug.utils import secure_filename
 import os
 from flask_login import current_user, login_required
+from data.category import Category
 
 blueprint = flask.Blueprint(
     'announcement',
@@ -26,6 +27,7 @@ def make_announcement():
         announcement.address = form.address.data
         announcement.picture = form.pictures.data.filename
         picture = form.pictures.data
+        announcement.category = form.category.data
         filename = secure_filename(picture.filename)
         picture.save(os.path.join('static/images', filename))
         current_user.announcements.append(announcement)
@@ -41,7 +43,10 @@ def announcement_view(id):
     db_sess = db_session.create_session()
     announcement = db_sess.query(Announcement).filter(Announcement.id == id).first()
     pictures = f'/static/images/{announcement.picture}'
-    return render_template('announcement-view.html', announcement=announcement, pictures=pictures)
+    in_following = announcement.id in [i.id for i in current_user.following]
+    personal_ann = announcement.id in [i.id for i in current_user.announcements]
+    return render_template('announcement-view.html', announcement=announcement, pictures=pictures,
+                           in_following=in_following, personal_ann=personal_ann)
 
 
 @blueprint.route('/announcement-delete/<int:id>', methods=['GET', 'POST'])
@@ -54,7 +59,7 @@ def announcement_delete(id):
         db_sess.commit()
     else:
         abort(404)
-    return redirect('/personal_area')
+    return redirect('/personal-area-main')
 
 
 @blueprint.route('/announcement-edit/<int:id>', methods=['GET', 'POST'])
@@ -89,10 +94,38 @@ def edit_announcement(id):
             filename = secure_filename(picture.filename)
             picture.save(os.path.join(f'static/images/', filename))
             db_sess.commit()
-            return redirect('/personal_area')
+            return redirect('/personal-area-main')
         else:
             abort(404)
     return render_template('/announcement-make.html',
                            title='Редактирование объявление',
                            form=form
                            )
+
+
+@blueprint.route('/following/<int:id>', methods=['GET', 'POST'])
+@login_required
+def following(id):
+    db_sess = db_session.create_session()
+    announcement = db_sess.query(Announcement).filter(Announcement.id == id).first()
+    current_db_sessions = db_sess.object_session(announcement)
+    current_db_sessions.close()
+    if announcement and announcement.id not in [i.id for i in current_user.following]:
+        current_user.following.append(announcement)
+        db_sess.merge(current_user)
+        db_sess.commit()
+    return redirect(f'/{id}')
+
+
+@blueprint.route('/following-delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def following_delete(id):
+    db_sess = db_session.create_session()
+    announcement = db_sess.query(Announcement).filter(Announcement.id == id).first()
+    current_db_sessions = db_sess.object_session(announcement)
+    current_db_sessions.close()
+    if announcement and announcement.id in [i.id for i in current_user.following]:
+        current_user.following.remove(current_user.following[[i.id for i in current_user.following].index(announcement.id)])
+        db_sess.merge(current_user)
+        db_sess.commit()
+    return redirect(f'/{id}')
