@@ -38,6 +38,7 @@ def register():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
+        db_sess.close()
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
@@ -48,6 +49,7 @@ def login():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
+        db_sess.close()
         if user and user.check_password(form.password.data):
             login_user(user)
             return redirect("/")
@@ -68,6 +70,7 @@ def logout():
 def personal_area():
     db_sess = db_session.create_session()
     personal_announcements = db_sess.query(Announcement).filter(current_user.id == Announcement.user_id).all()
+    db_sess.close()
     return render_template('personal-area-main.html', personal_announcements=personal_announcements)
 
 
@@ -76,4 +79,5 @@ def personal_area_following():
     db_sess = db_session.create_session()
     following_list = [i.id for i in current_user.following]
     following_announcements = db_sess.query(Announcement).filter(Announcement.id.in_(following_list)).all()
+    db_sess.close()
     return render_template('personal-area-following.html', following_announcements=following_announcements)

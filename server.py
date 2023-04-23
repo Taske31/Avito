@@ -23,6 +23,16 @@ def bad_request(_):
     return make_response(jsonify({'error': 'Bad Request'}), 400)
 
 
+@app.errorhandler(401)
+def not_found(error):
+    return make_response(jsonify({'error': 'unauthorized'}), 401)
+
+
+@app.errorhandler(500)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 500)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -36,9 +46,9 @@ def main():
     app.register_blueprint(users_blueprints.blueprint)
     app.register_blueprint(announcements_blueprints.blueprint)
     app.register_blueprint(api.blueprint)
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    main()

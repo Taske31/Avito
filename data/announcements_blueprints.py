@@ -78,6 +78,7 @@ def edit_announcement(id):
             os.remove(f'static/images/{announcement.picture}')
         else:
             abort(404)
+        db_sess.close()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         announcement = db_sess.query(Announcement).filter(Announcement.id == id,
@@ -93,6 +94,7 @@ def edit_announcement(id):
             filename = secure_filename(picture.filename)
             picture.save(os.path.join(f'static/images/', filename))
             db_sess.commit()
+            db_sess.close()
             return redirect('/personal-area-main')
         else:
             abort(404)
@@ -113,6 +115,7 @@ def following(id):
         current_user.following.append(announcement)
         db_sess.merge(current_user)
         db_sess.commit()
+        db_sess.close()
     return redirect(f'/{id}')
 
 
@@ -127,4 +130,5 @@ def following_delete(id):
         current_user.following.remove(current_user.following[[i.id for i in current_user.following].index(announcement.id)])
         db_sess.merge(current_user)
         db_sess.commit()
+        db_sess.close()
     return redirect(f'/{id}')

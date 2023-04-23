@@ -2,6 +2,9 @@
     background-color: #4752FF;
     align-items: center;
     height: 50px;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
 }
 
 .nav-container{
@@ -12,12 +15,13 @@
     color: rgb(255, 255, 255);
     font-size: 20px;
     margin-left: 1%;
+    font-family: 'Arial';
 }
 
 
 .nav-items{
     text-decoration: none;
-    font-family: 'Comic Sans MS';
+    font-family: 'Arial';
     color: rgb(255, 255, 255);
     font-size: 20px;
     background-color: #4954FF;
@@ -33,6 +37,9 @@
 .content{
     margin-left: 20%;
     margin-right: 20%;
+    position: relative;
+    top: 55px;
+    z-index: 1;
 }
 
 .category{
@@ -41,7 +48,7 @@
     font-size: 25px;
     width: 15%;
     height: 5%;
-    font-family: 'Comic Sans MS';
+    font-family: 'Arial';
     text-decoration: none;
     display: inline;
     margin: 1%;
@@ -50,19 +57,19 @@
 .search{
     color: rgb(255, 255, 255);
     font-size: 25px;
-    font-family: 'Comic Sans MS';
+    font-family: 'Arial';
     width: 30%;
     height: 5%;
     color: black;
 
 }
 .search-block{
-    display: inline;
     margin: 1%;
 }
 
 .searching{
     position: relative;
+    font-family: 'Arial';
 }
 
 .announcement{
@@ -72,6 +79,7 @@
     position: relative;
     width:  60%;
     height: 20%;
+    font-family: 'Arial';
 }
 
 .announcement:hover{
@@ -80,7 +88,10 @@
 }
 
 .announcement-block{
-    background-color: rgb(255, 255, 255);
+    background-color: #EBEBEB;
+    border: 0px solid;
+    border-radius: 3px;
+    padding: 4px;
 }
 
 .announcement-block:hover{
@@ -96,5 +107,30 @@
     position: absolute;
     right: 1px;
     top: 1px;
+}
 
+.announcement-view-actions{
+    font-family: 'Arial';
+}
+
+.announcement-view-date{
+    font-size: 25px;
+}
+
+.announcement-view-address{
+    font-size: 25px;
+}
+
+.announcement-view-content{
+    font-size: 25px;
+}
+
+.announcement-view-user{
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+
+.personal-info{
+    font-size: 15px;
 }

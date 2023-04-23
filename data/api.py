@@ -30,6 +30,7 @@ def get_announcements():
 def get_one_announcements(id):
     db_sess = db_session.create_session()
     announcement = db_sess.query(Announcement).get(id)
+    db_sess.close()
     if not announcement:
         return jsonify({'error': 'Not found'})
     return jsonify(
@@ -43,7 +44,7 @@ def get_one_announcements(id):
 
 
 @blueprint.route('/api/announcements/<int:id>', methods=['DELETE'])
-def delete_news(id):
+def delete_announcements(id):
     db_sess = db_session.create_session()
     announcements = db_sess.query(Announcement).get(id)
     if not announcements:
