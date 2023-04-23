@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="">
+    <div class="dropdown">
+        <button class="btn category dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Категории
+        </button>
+        <ul class="dropdown-menu">
+            {% for item in categories %}
+                <li><a class="dropdown-item" href="search/category/{{item}}">{{item}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <form action="/search" method="POST">
+        <input class="search" name="search-place" type="text">
+        <input type="submit" class="btn btn-primary" placeholder="Искать">
+    </form>
+</div>
+
+<div class="announcements">
+    {% for item in announcements%}
+        <div class="announcement-block">
+            <a class="announcement" href="/{{item.id}}">
+                <h2>{{item.title}}</h2>
+                <div>
+                    {{item.content}}
+                </div>
+                <div>
+                    Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

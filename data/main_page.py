@@ -34,3 +34,10 @@ def search_by_categories(get_category):
         announcements = db_sess.query(Announcement).filter(Announcement.category == get_category).all()
     return render_template('search-by-category.html', current_user=current_user, announcements=announcements,
                            categories=categories)
+
+@blueprint.route('/search', methods=['GET', 'POST'])
+def search():
+    db_sess = db_session.create_session()
+    categories = [i.name for i in db_sess.query(Category).all()]
+    announcements = db_sess.query(Announcement).filter(Announcement.title == request.form.get('search-place'))
+    return render_template('search.html', announcements=announcements, categories=categories)
