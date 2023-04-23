@@ -6,7 +6,6 @@ from forms import announcement_forms
 from werkzeug.utils import secure_filename
 import os
 from flask_login import current_user, login_required
-from data.category import Category
 
 blueprint = flask.Blueprint(
     'announcement',
