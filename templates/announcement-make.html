@@ -2,19 +2,62 @@
 
 {% block content %}
     <form action="" method="post" novalidate enctype="multipart/form-data">
-        <div>
-            {{ form.csrf_token }}
-        </div>
-        {% for field in form if field.name != 'csrf_token' %}
-            <div>
-
-                {{ field.label() }}
-                {{ field() }}
-                {% for error in field.errors %}
-                    <div class="error">{{ error }}</div>
-                {% endfor %}
-
-            </div>
+        {{ form.hidden_tag() }}
+        <p class="forms-label">
+            {{ form.category.label }}
+            {{ form.category(class="form-control") }}<br>
+            {% for error in form.category.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
         {% endfor %}
+        </p>
+        <p class="forms-label">
+            {{ form.title.label }}
+            {{ form.title(class="form-control") }}<br>
+            {% for error in form.title.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p class="forms-label">
+            {{ form.pictures.label }}<br>
+            {{ form.pictures() }}<br>
+            {% for error in form.pictures.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p class="forms-label">
+            {{ form.content.label }}
+            {{ form.content(class="form-control") }}<br>
+            {% for error in form.content.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p class="forms-label">
+            {{ form.state.label }}
+            {{ form.state(class="form-control") }}<br>
+            {% for error in form.state.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p class="forms-label">
+            {{ form.address.label }}
+            {{ form.address(class="form-control") }}<br>
+            {% for error in form.address.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        {{message}}
     </form>
 {% endblock %}

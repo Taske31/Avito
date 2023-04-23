@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, make_response, jsonify, redirect
 from flask_restful import Api
 from data import db_session, users
 from flask_login import LoginManager, login_required, current_user
@@ -11,6 +11,17 @@ api = Api(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad Request'}), 400)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -19,10 +30,11 @@ def load_user(user_id):
 
 def main():
     db_session.global_init("db/avito-db.db")
-    from data import main_page, users_blueprints, announcements_blueprints
+    from data import main_page, users_blueprints, announcements_blueprints, api
     app.register_blueprint(main_page.blueprint)
     app.register_blueprint(users_blueprints.blueprint)
     app.register_blueprint(announcements_blueprints.blueprint)
+    app.register_blueprint(api.blueprint)
     app.run()
 
 

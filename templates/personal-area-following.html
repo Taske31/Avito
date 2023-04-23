@@ -6,12 +6,12 @@
     <p>Почта - {{current_user.email}}</p>
     <a href="/logout" class="btn btn-danger">Выйти</a>
 </div>
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" style="background-color: white; color: black; font-size: 20px;">
   <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="/personal-area-main">Архив</a>
+    <a class="nav-link" aria-current="page" href="/personal-area-main" style="color: black;">Архив</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="/personal-area-following">Избранное</a>
+    <a class="nav-link active" href="/personal-area-following" style="color: black;">Избранное</a>
   </li>
 </ul>
     {% for announcement in following_announcements %}
@@ -20,6 +20,9 @@
                 <h2>{{announcement.title}}</h2>
                 <div>
                     {{announcement.content}}
+                </div>
+                <div class="picture">
+                    <img src="../static/images/{{announcement.picture}}" width="90" height="90" alt="">
                 </div>
                 <div>
                     Дата написания - {{announcement.created_date}}

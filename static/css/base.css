@@ -14,38 +14,21 @@
     margin-left: 1%;
 }
 
-.basket{
-    font-size: 20px;
-    width: 14%;
-}
 
-.make_announcement{
-    width: 14%;
-}
-
-.go_to_personal_area{
-    width: 14%;
-
-}
-
-.nav-item{
+.nav-items{
     text-decoration: none;
     font-family: 'Comic Sans MS';
     color: rgb(255, 255, 255);
     font-size: 20px;
-
+    background-color: #4954FF;
+    margin-left: 10%;
 }
 
 
 .nav-item:hover{
     text-decoration: none;
+
 }
-
-
-
-
-
-
 
 .content{
     margin-left: 20%;
@@ -60,35 +43,39 @@
     height: 5%;
     font-family: 'Comic Sans MS';
     text-decoration: none;
+    display: inline;
+    margin: 1%;
 }
 
 .search{
     color: rgb(255, 255, 255);
     font-size: 25px;
     font-family: 'Comic Sans MS';
-    margin-left: 0%;
-    width: 40%;
+    width: 30%;
     height: 5%;
     color: black;
+
+}
+.search-block{
+    display: inline;
+    margin: 1%;
 }
 
 .searching{
     position: relative;
-
 }
 
 .announcement{
     text-decoration: none;
     color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);
-
-
+    position: relative;
+    width:  60%;
+    height: 20%;
 }
 
 .announcement:hover{
     text-decoration: none;
-    color: red;
-
     color: rgb(0, 0, 0);
 }
 
@@ -100,4 +87,14 @@
     background-color: #7F8284;
 }
 
+.forms-label{
+    margin: 1%;
+}
 
+
+.picture{
+    position: absolute;
+    right: 1px;
+    top: 1px;
+
+}

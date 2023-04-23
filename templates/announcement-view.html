@@ -1,33 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="announcement-view-actions">
-    <a class="btn btn-warning" href="/announcement-edit/{{announcement.id}}">Редактировать</a>
-    <a class="btn btn-danger" href="/announcement-delete/{{announcement.id}}">Удалить</a>
-    {% if in_following %}
-        <a class="btn btn-primary" href="/following-delete/{{announcement.id}}">В избранном</a>
-    {% elif personal_ann %}
-    {% else %}
-        <a class="btn btn-primary" href="/following/{{announcement.id}}">Добавить</a>
-    {% endif %}
+    {% if current_user.is_authenticated %}
+        {% if in_following %}
+            <a class="btn btn-primary" href="/following-delete/{{announcement.id}}">В избранном</a>
+        {% elif personal_ann %}
+            <a class="btn btn-warning" href="/announcement-edit/{{announcement.id}}">Редактировать</a>
+            <a class="btn btn-danger" href="/announcement-delete/{{announcement.id}}">Удалить</a>
+        {% else %}
+            <a class="btn btn-primary" href="/following/{{announcement.id}}">Добавить</a>
+        {% endif %}
+     {% endif %}
 </div>
 <div class="announcement-view-block">
     <div class="announcement-view-user">
-        <a href="#">{{announcement.user.name}}</a>
+        <h3>{{announcement.user.name}}</h3>
     </div>
     <div class="announcement-view-title">
-        <h2>{{announcement.title}}</h2>
+        <h1>{{announcement.title}}</h1>
     </div>
     <div class="announcement-view-date">
-        {{announcement.created_date}}
+        <p>Создано: {{announcement.created_date}}</p>
     </div>
     <div class="announcement-view-picture">
-        <img src="{{pictures}}" alt="Не удалось загрузить файл">
+        <img src="{{pictures}}" width="400" height="400" alt="Не удалось загрузить файл">
     </div>
     <div class="announcement-view-content">
+        <h3>Описание</h3>
         {{announcement.content}}
     </div>
     <div class="announcement-view-address">
-        {{announcement.address}}
+        <p>Адрес: {{announcement.address}}</p>
     </div>
 </div>
 
