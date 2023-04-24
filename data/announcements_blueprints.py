@@ -14,6 +14,7 @@ blueprint = flask.Blueprint(
 )
 
 
+# обработчик создания объявления
 @blueprint.route('/make_announcement', methods=['GET', 'POST'])
 def make_announcement():
     form = announcement_forms.AnnouncementForm()
@@ -28,7 +29,7 @@ def make_announcement():
         picture = form.pictures.data
         announcement.category = form.category.data
         filename = secure_filename(picture.filename)
-        picture.save(os.path.join('static/images', filename))
+        picture.save(os.path.join('static/images', filename))  # сохранение картинки в папку static/images
         current_user.announcements.append(announcement)
         db_sess.merge(current_user)
         db_sess.commit()
@@ -36,18 +37,20 @@ def make_announcement():
     return render_template('announcement-make.html', title='Разместить объявление', form=form)
 
 
+# обработчик просмотра объявлеиния
 @blueprint.route('/<int:id>')
 @login_required
 def announcement_view(id):
     db_sess = db_session.create_session()
     announcement = db_sess.query(Announcement).filter(Announcement.id == id).first()
     pictures = f'/static/images/{announcement.picture}'
-    in_following = announcement.id in [i.id for i in current_user.following]
-    personal_ann = announcement.id in [i.id for i in current_user.announcements]
+    in_following = announcement.id in [i.id for i in current_user.following]  # Проверка на наличии в избранном
+    personal_ann = announcement.id in [i.id for i in current_user.announcements]  # проверка на принадлежность
     return render_template('announcement-view.html', announcement=announcement, pictures=pictures,
                            in_following=in_following, personal_ann=personal_ann)
 
 
+# удаление объявления
 @blueprint.route('/announcement-delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def announcement_delete(id):
@@ -61,6 +64,7 @@ def announcement_delete(id):
     return redirect('/personal-area-main')
 
 
+# редактирование объявления
 @blueprint.route('/announcement-edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_announcement(id):
@@ -68,8 +72,8 @@ def edit_announcement(id):
     if request.method == "GET":
         db_sess = db_session.create_session()
         announcement = db_sess.query(Announcement).filter(Announcement.id == id,
-                                          Announcement.user == current_user
-                                          ).first()
+                                                          Announcement.user == current_user
+                                                          ).first()
         if announcement:
             form.title.data = announcement.title
             form.content.data = announcement.content
@@ -82,8 +86,8 @@ def edit_announcement(id):
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         announcement = db_sess.query(Announcement).filter(Announcement.id == id,
-                                          Announcement.user == current_user
-                                          ).first()
+                                                          Announcement.user == current_user
+                                                          ).first()
         if announcement:
             announcement.title = form.title.data
             announcement.content = form.content.data
@@ -92,7 +96,7 @@ def edit_announcement(id):
             announcement.picture = form.pictures.data.filename
             picture = form.pictures.data
             filename = secure_filename(picture.filename)
-            picture.save(os.path.join(f'static/images/', filename))
+            picture.save(os.path.join(f'static/images/', filename))  # сохранение картинки в папку static/images
             db_sess.commit()
             db_sess.close()
             return redirect('/personal-area-main')
@@ -104,6 +108,7 @@ def edit_announcement(id):
                            )
 
 
+# добавление объявления в избранное
 @blueprint.route('/following/<int:id>', methods=['GET', 'POST'])
 @login_required
 def following(id):
@@ -119,15 +124,17 @@ def following(id):
     return redirect(f'/{id}')
 
 
+# удаление из избранного
 @blueprint.route('/following-delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def following_delete(id):
     db_sess = db_session.create_session()
     announcement = db_sess.query(Announcement).filter(Announcement.id == id).first()
-    current_db_sessions = db_sess.object_session(announcement)
+    current_db_sessions = db_sess.object_session(announcement)  # получении сессии announcement
     current_db_sessions.close()
     if announcement and announcement.id in [i.id for i in current_user.following]:
-        current_user.following.remove(current_user.following[[i.id for i in current_user.following].index(announcement.id)])
+        current_user.following.remove(
+            current_user.following[[i.id for i in current_user.following].index(announcement.id)])
         db_sess.merge(current_user)
         db_sess.commit()
         db_sess.close()

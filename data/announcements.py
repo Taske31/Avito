@@ -6,6 +6,7 @@ from sqlalchemy_serializer import SerializerMixin
 from .db_session import SqlAlchemyBase
 
 
+# Модель объявления
 class Announcement(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'announcement'
 
@@ -24,6 +25,7 @@ class Announcement(SqlAlchemyBase, SerializerMixin):
     category = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
 
+# дополнительная таблица для many_to_many
 following_table = sqlalchemy.Table(
     'following',
     SqlAlchemyBase.metadata,
