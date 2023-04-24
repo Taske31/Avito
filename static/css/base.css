@@ -102,6 +102,10 @@
     margin: 1%;
 }
 
+.announcements-block{
+    margin-top: 50px;
+}
+
 
 .picture{
     position: absolute;
@@ -133,4 +137,8 @@
 
 .personal-info{
     font-size: 15px;
+}
+
+.place-form{
+    margin-top: -11px;
 }

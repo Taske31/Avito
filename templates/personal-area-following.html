@@ -14,6 +14,7 @@
     <a class="nav-link active" href="/personal-area-following" style="color: black;">Избранное</a>
   </li>
 </ul>
+<div class="announcements-block">
     {% for announcement in following_announcements %}
     <div class="announcement-block">
             <a class="announcement" href="/{{announcement.id}}">
@@ -30,6 +31,7 @@
             </a>
         </div>
     {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

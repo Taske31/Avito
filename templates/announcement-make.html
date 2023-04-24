@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="" method="post" novalidate enctype="multipart/form-data">
+    <form class="place-form" action="" method="post" novalidate enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p class="forms-label">
             {{ form.category.label }}
